@@ -35,6 +35,10 @@ class Worker(threading.Thread):
 
 	def run(self):
 		while 1:
+			if not self.exit.empty():
+				logger.info("thread  will exit.".format(id=self.ident))
+				break
+
 			try:
 				param = self.job.get_nowait()
 				result = download(param.url, param.output)
@@ -42,10 +46,7 @@ class Worker(threading.Thread):
 				time.sleep(1)
 			except Empty:
 				logger.info("no task........")
-				if not self.exit.empty():
-					logger.info("thread  will exit.".format(id=self.ident))
-					break
-			time.sleep(1)
+				time.sleep(1)
 
 
 def downloads(urls, outputs=[], concurrency=cpu_count()):
@@ -63,6 +64,7 @@ def downloads(urls, outputs=[], concurrency=cpu_count()):
 	works = []
 
 	# 创建工作线程并启动
+	concurrency = job_size if concurrency > job_size else concurrency
 	for _ in range(concurrency):
 		t = Worker(job_queue, result_queue, exit_queue)
 		works.append(t)

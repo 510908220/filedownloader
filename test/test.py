@@ -18,7 +18,7 @@ urls = [
 
 from  filedownloader import http_downloads,http_download
 
-results = http_downloads(urls)
+results = http_downloads(urls,[],2)
 
 for result in results:
 	print(result)

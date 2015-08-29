@@ -9,7 +9,7 @@ logger.setLevel(logging.DEBUG)
 console = logging.StreamHandler()
 console.setLevel(logging.DEBUG)
 formatter = logging.Formatter(
-	'%(asctime)s  %(levelname)s - %(message)s   [%(filename)s %(funcName)s line:%(lineno)d] [threadid:%(thread)d]')
+	'%(asctime)s  %(levelname)10s - %(message)s   [%(filename)s %(funcName)s line:%(lineno)d threadid:%(thread)d]')
 console.setFormatter(formatter)
 logger.addHandler(console)
 
@@ -17,7 +17,7 @@ logger.addHandler(console)
 file_handler = logging.FileHandler(__name__ + ".log", "w")
 file_handler.setLevel(logging.INFO)
 formatter = logging.Formatter(
-	'%(asctime)s  %(levelname)s - %(message)s   [%(filename)s %(funcName)s line:%(lineno)d] [threadid:%(thread)d]')
+	'%(asctime)s  %(levelname)10s - %(message)s   [%(filename)s %(funcName)s line:%(lineno)d threadid:%(thread)d]')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
